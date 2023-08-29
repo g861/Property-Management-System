@@ -3,7 +3,13 @@ package com.amdocs.PropertyManagement;
 import java.sql.*;
 import java.util.*;
 
+import com.mysql.cj.jdbc.BlobFromLocator;
+
 import DAO.AddProperty;
+import DAO.DeleteProperty;
+import DAO.DisplayProperty;
+import DAO.Search;
+import DAO.UpdateProperty;
 
 import java.io.*;
 
@@ -36,8 +42,25 @@ public class App
 				case 1:
 					AddProperty addObj = new AddProperty() ; 
 					addObj.addData(connRes, sc, br);
+					break ;
+				case 2:
+					UpdateProperty updObj = new UpdateProperty() ;
+					updObj.updateProperty(connRes, sc, br);
 					break;
-
+				case 3:
+					DisplayProperty dispObj = new DisplayProperty() ; 
+					dispObj.displayProp(conn, null);
+					break;
+				case 4:
+					DeleteProperty delObj = new DeleteProperty() ; 
+					delObj.deleteProperty(connRes, sc);
+					break;
+				case 5:
+					System.out.println("Please Enter the area to Search ");
+					String area = br.readLine() ; 
+					Search sObj = new Search(); 
+					sObj.searchPro(connRes, area);
+					break;
 				default:
 					break;
 				}
@@ -46,7 +69,8 @@ public class App
         	}
 		} catch (Exception e) {
 			// TODO: handle exception
-			System.err.println(e);
+			System.out.println(" Choose Valid Options ");
 		}
+        sc.close();
     }
 }
